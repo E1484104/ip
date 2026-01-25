@@ -16,21 +16,21 @@ public class Task {
         return numberOfTasks;
     }
 
-    public Task(String description){
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
         numberOfTasks++;
     }
 
-    public void markAsDone(){
+    public void markAsDone() {
         isDone = true;
     }
 
-    public void markAsUndone(){
+    public void markAsUndone() {
         isDone = false;
     }
 
-    public String getStatusIcon(){
+    public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 }

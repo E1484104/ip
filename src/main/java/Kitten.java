@@ -13,29 +13,29 @@ public class Kitten {
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
 
-        while(!line.equals("bye")) {
-            if(line.equals("list")){
-                for(int i = 1; i <= Task.getNumberOfTasks(); i++) {
-                    System.out.println("     " + i + ". [" + tasks[i-1].getStatusIcon() + "] " + tasks[i-1].getDescription());
+        while (!line.equals("bye")) {
+            if (line.equals("list")) {
+                for (int i = 1; i <= Task.getNumberOfTasks(); i++) {
+                    System.out.println("     " + i + ". [" + tasks[i - 1].getStatusIcon() + "] " + tasks[i - 1].getDescription());
                 }
                 System.out.println("    ____________________________________________________________\n");
-            }else if(line.startsWith("mark")){
+            } else if (line.startsWith("mark")) {
                 String[] words = line.split(" ");
                 int thisIndex = Integer.parseInt(words[1]);
-                tasks[thisIndex-1].markAsDone();
+                tasks[thisIndex - 1].markAsDone();
                 System.out.println("     Good job, have a rest! I've marked this task as done:");
-                System.out.println("        [" + tasks[thisIndex-1].getStatusIcon() + "] " + tasks[thisIndex-1].getDescription());
+                System.out.println("        [" + tasks[thisIndex - 1].getStatusIcon() + "] " + tasks[thisIndex - 1].getDescription());
                 System.out.println("    ____________________________________________________________\n");
-            }else if(line.startsWith("unmark")){
+            } else if (line.startsWith("unmark")) {
                 String[] words = line.split(" ");
                 int thisIndex = Integer.parseInt(words[1]);
-                tasks[thisIndex-1].markAsUndone();
+                tasks[thisIndex - 1].markAsUndone();
                 System.out.println("     All right, I've marked this task as not done yet:");
-                System.out.println("        [" + tasks[thisIndex-1].getStatusIcon() + "] " + tasks[thisIndex-1].getDescription());
+                System.out.println("        [" + tasks[thisIndex - 1].getStatusIcon() + "] " + tasks[thisIndex - 1].getDescription());
                 System.out.println("    ____________________________________________________________\n");
-            }else{
+            } else {
                 Task t = new Task(line);
-                tasks[Task.getNumberOfTasks()-1] = t;
+                tasks[Task.getNumberOfTasks() - 1] = t;
                 System.out.println("     Task added: " + line);
                 System.out.println("    ____________________________________________________________\n");
             }
