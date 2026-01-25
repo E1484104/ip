@@ -8,7 +8,6 @@ public class Kitten {
         System.out.println("    ____________________________________________________________\n");
 
         Task[] tasks = new Task[100];
-        int index = 0;
 
         String line;
         Scanner in = new Scanner(System.in);
@@ -16,7 +15,7 @@ public class Kitten {
 
         while(!line.equals("bye")) {
             if(line.equals("list")){
-                for(int i = 1; i <= index; i++) {
+                for(int i = 1; i <= Task.getNumberOfTasks(); i++) {
                     System.out.println("     " + i + ". [" + tasks[i-1].getStatusIcon() + "] " + tasks[i-1].getDescription());
                 }
                 System.out.println("    ____________________________________________________________\n");
@@ -35,11 +34,10 @@ public class Kitten {
                 System.out.println("        [" + tasks[thisIndex-1].getStatusIcon() + "] " + tasks[thisIndex-1].getDescription());
                 System.out.println("    ____________________________________________________________\n");
             }else{
+                Task t = new Task(line);
+                tasks[Task.getNumberOfTasks()-1] = t;
                 System.out.println("     Task added: " + line);
                 System.out.println("    ____________________________________________________________\n");
-                Task t = new Task(line);
-                tasks[index] = t;
-                index++;
             }
 
             line = in.nextLine();

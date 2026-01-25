@@ -2,6 +2,8 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+    private static int numberOfTasks = 0;
+
     public String getDescription() {
         return description;
     }
@@ -10,9 +12,14 @@ public class Task {
         return isDone;
     }
 
+    public static int getNumberOfTasks() {
+        return numberOfTasks;
+    }
+
     public Task(String description){
         this.description = description;
         this.isDone = false;
+        numberOfTasks++;
     }
 
     public void markAsDone(){
