@@ -13,10 +13,11 @@ public class Kitten {
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
+
         while(!line.equals("bye")) {
             if(line.equals("list")){
                 for(int i = 1; i <= index; i++) {
-                    System.out.println("     " + i + ". [" + tasks[i-1].getStatusIcon() + "] " + tasks[i-1].description);
+                    System.out.println("     " + i + ". [" + tasks[i-1].getStatusIcon() + "] " + tasks[i-1].getDescription());
                 }
                 System.out.println("    ____________________________________________________________\n");
             }else{
