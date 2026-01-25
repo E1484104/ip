@@ -7,7 +7,7 @@ public class Kitten {
         System.out.println("     What can I do for you? I'm always here to be with you~");
         System.out.println("    ____________________________________________________________\n");
 
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int index = 0;
 
         String line;
@@ -16,13 +16,14 @@ public class Kitten {
         while(!line.equals("bye")) {
             if(line.equals("list")){
                 for(int i = 1; i <= index; i++) {
-                    System.out.println("     " + i + ". " + tasks[i-1]);
+                    System.out.println("     " + i + ". [" + tasks[i-1].getStatusIcon() + "] " + tasks[i-1].description);
                 }
                 System.out.println("    ____________________________________________________________\n");
             }else{
                 System.out.println("     Task added: " + line);
                 System.out.println("    ____________________________________________________________\n");
-                tasks[index] = line;
+                Task t = new Task(line);
+                tasks[index] = t;
                 index++;
             }
 
