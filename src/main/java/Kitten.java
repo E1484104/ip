@@ -14,7 +14,7 @@ public class Kitten {
 
     private static void handleCommand() {
         Scanner in = new Scanner(System.in);
-        String line = in.nextLine();
+        String line = in.nextLine().trim();
 
         Task[] tasks = new Task[100];
 
@@ -30,7 +30,7 @@ public class Kitten {
             }
             System.out.println(DIALOGUE_DIVIDER);
 
-            line = in.nextLine();
+            line = in.nextLine().trim();
         }
     }
 
