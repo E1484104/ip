@@ -11,6 +11,8 @@ public class Kitten {
     public static final int EVENT_PREFIX_LENGTH = 5;
     public static final int FROM_PREFIX_LENGTH = 5;
     public static final int TO_PREFIX_LENGTH = 3;
+    public static final int MARK_PREFIX_LENGTH = 4;
+    public static final int UNMARK_PREFIX_LENGTH = 6;
 
     public static void main(String[] args) {
         printWelcomeMessage();
@@ -87,8 +89,8 @@ public class Kitten {
     }
 
     private static void handleCommandUnmark(String line, Task[] tasks) {
-        String[] words = line.split(" ");
-        int thisIndex = Integer.parseInt(words[1]);
+        line = line.substring(UNMARK_PREFIX_LENGTH).trim();
+        int thisIndex = Integer.parseInt(line);
         Task t = tasks[thisIndex - 1];
         t.markAsUndone();
         System.out.println(OUTPUT_INDENTATION + "All right, I've marked this task as not done yet:");
@@ -96,8 +98,8 @@ public class Kitten {
     }
 
     private static void handleCommandMark(String line, Task[] tasks) {
-        String[] words = line.split(" ");
-        int thisIndex = Integer.parseInt(words[1]);
+        line = line.substring(MARK_PREFIX_LENGTH).trim();
+        int thisIndex = Integer.parseInt(line);
         Task t = tasks[thisIndex - 1];
         t.markAsDone();
         System.out.println(OUTPUT_INDENTATION + "Good job, have a rest! I've marked this task as done:");

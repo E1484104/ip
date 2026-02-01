@@ -50,7 +50,7 @@
         [E][X] Field Research (from: 4pm to: I don't care just be quick)
     ____________________________________________________________
 
-//   	mark 2
+//   	mark   2
      Good job, have a rest! I've marked this task as done:
         [D][X] Finish iP task :( (by: Week 8)
     ____________________________________________________________
@@ -62,7 +62,7 @@
      3. [E][X] Field Research (from: 4pm to: I don't care just be quick)
     ____________________________________________________________
 
-//unmark 2
+//unmark 		2
      All right, I've marked this task as not done yet:
         [D][ ] Finish iP task :( (by: Week 8)
     ____________________________________________________________
