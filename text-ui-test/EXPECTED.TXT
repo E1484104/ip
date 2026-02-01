@@ -1,7 +1,79 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+    ____________________________________________________________
+     Hey! I'm Kitten~ Good to see you again!
+     What can I do for you? I'm always here to be with you~
+    ____________________________________________________________
 
+//todo HelloWorld
+     Got it! Todo task added: 
+        [T][ ] HelloWorld
+     Now you have 1 tasks in the list.
+    ____________________________________________________________
+
+//deadline       Finish iP task :(    /by Week 8
+     Got it! Deadline task added: 
+        [D][ ] Finish iP task :( (by: Week 8)
+     Now you have 2 tasks in the list.
+    ____________________________________________________________
+
+//list
+     Here are the tasks in your list:
+     1. [T][ ] HelloWorld
+     2. [D][ ] Finish iP task :( (by: Week 8)
+    ____________________________________________________________
+
+//mark 1
+     Good job, have a rest! I've marked this task as done:
+        [T][X] HelloWorld
+    ____________________________________________________________
+
+//list
+     Here are the tasks in your list:
+     1. [T][X] HelloWorld
+     2. [D][ ] Finish iP task :( (by: Week 8)
+    ____________________________________________________________
+
+//  event      Field Research /from 4pm /to I don't care just be quick
+     Got it! Event task added: 
+        [E][ ] Field Research (from: 4pm to: I don't care just be quick)
+     Now you have 3 tasks in the list.
+    ____________________________________________________________
+
+//list
+     Here are the tasks in your list:
+     1. [T][X] HelloWorld
+     2. [D][ ] Finish iP task :( (by: Week 8)
+     3. [E][ ] Field Research (from: 4pm to: I don't care just be quick)
+    ____________________________________________________________
+
+//mark 3
+     Good job, have a rest! I've marked this task as done:
+        [E][X] Field Research (from: 4pm to: I don't care just be quick)
+    ____________________________________________________________
+
+//   	mark 2
+     Good job, have a rest! I've marked this task as done:
+        [D][X] Finish iP task :( (by: Week 8)
+    ____________________________________________________________
+
+//list
+     Here are the tasks in your list:
+     1. [T][X] HelloWorld
+     2. [D][X] Finish iP task :( (by: Week 8)
+     3. [E][X] Field Research (from: 4pm to: I don't care just be quick)
+    ____________________________________________________________
+
+//unmark 2
+     All right, I've marked this task as not done yet:
+        [D][ ] Finish iP task :( (by: Week 8)
+    ____________________________________________________________
+
+//    list
+     Here are the tasks in your list:
+     1. [T][X] HelloWorld
+     2. [D][ ] Finish iP task :( (by: Week 8)
+     3. [E][X] Field Research (from: 4pm to: I don't care just be quick)
+    ____________________________________________________________
+
+//bye
+     Bye~ Have a nice day and all the best!
+    ____________________________________________________________

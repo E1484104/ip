@@ -23,7 +23,8 @@ fi
 java -classpath ../bin Kitten < input.txt > ACTUAL.TXT
 
 # convert to UNIX format
-cp EXPECTED.TXT EXPECTED-UNIX.TXT
+grep -v "^//" EXPECTED.TXT > EXPECTED-TEMP.TXT
+cp EXPECTED-TEMP.TXT EXPECTED-UNIX.TXT
 dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
 
 # compare the output to the expected output
