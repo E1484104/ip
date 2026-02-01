@@ -54,7 +54,9 @@ public class Kitten {
         String to = line.substring(toIndex + TO_PREFIX_LENGTH).trim();
         Task t = new Event(description, "E", from, to);
         tasks[Task.getNumberOfTasks() - 1] = t;
-        System.out.println(OUTPUT_INDENTATION + "Task added: " + t);
+        System.out.println(OUTPUT_INDENTATION + "Got it! Event task added: ");
+        System.out.println(SECOND_LINE_INDENTATION + t);
+        System.out.println(OUTPUT_INDENTATION + "Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
     }
 
     private static void handleCommandDeadline(String line, Task[] tasks) {
@@ -63,14 +65,18 @@ public class Kitten {
         String by = line.substring(byIndex + BY_PREFIX_LENGTH).trim();
         Task t = new Deadline(description, "D", by);
         tasks[Task.getNumberOfTasks() - 1] = t;
-        System.out.println(OUTPUT_INDENTATION + "Task added: " + t);
+        System.out.println(OUTPUT_INDENTATION + "Got it! Deadline task added: ");
+        System.out.println(SECOND_LINE_INDENTATION + t);
+        System.out.println(OUTPUT_INDENTATION + "Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
     }
 
     private static void handleCommandTodo(String line, Task[] tasks) {
         line = line.substring(TODO_PREFIX_LENGTH).trim();
         Task t = new Todo(line, "T");
         tasks[Task.getNumberOfTasks() - 1] = t;
-        System.out.println(OUTPUT_INDENTATION + "Task added: " + t);
+        System.out.println(OUTPUT_INDENTATION + "Got it! Todo task added: ");
+        System.out.println(SECOND_LINE_INDENTATION + t);
+        System.out.println(OUTPUT_INDENTATION + "Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
     }
 
 
@@ -99,6 +105,7 @@ public class Kitten {
     }
 
     private static void handleCommandList(Task[] tasks) {
+        System.out.println(OUTPUT_INDENTATION + "Here are the tasks in your list:");
         for (int i = 1; i <= Task.getNumberOfTasks(); i++) {
             Task t = tasks[i - 1];
             System.out.println(OUTPUT_INDENTATION + i + ". " + t);
