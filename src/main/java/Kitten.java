@@ -13,6 +13,7 @@ public class Kitten {
     public static final int TO_PREFIX_LENGTH = 3;
     public static final int MARK_PREFIX_LENGTH = 4;
     public static final int UNMARK_PREFIX_LENGTH = 6;
+    public static final int MAXIMUM_TASK_NUMBER = 100;
 
     public static void main(String[] args) {
         printWelcomeMessage();
@@ -24,7 +25,7 @@ public class Kitten {
         Scanner in = new Scanner(System.in);
         String line = in.nextLine().trim();
 
-        Task[] tasks = new Task[100];
+        Task[] tasks = new Task[MAXIMUM_TASK_NUMBER];
 
         while (!line.equals("bye")) {
             if (line.equals("list")) {
@@ -33,13 +34,13 @@ public class Kitten {
                 handleCommandMark(line, tasks);
             } else if (line.startsWith("unmark")) {
                 handleCommandUnmark(line, tasks);
-            } else if (line.startsWith("todo")){
+            } else if (line.startsWith("todo")) {
                 handleCommandTodo(line, tasks);
-            } else if (line.startsWith("deadline")){
+            } else if (line.startsWith("deadline")) {
                 handleCommandDeadline(line, tasks);
-            } else if (line.startsWith("event")){
+            } else if (line.startsWith("event")) {
                 handleCommandEvent(line, tasks);
-            }else {
+            } else {
                 handleCommandAdd(line, tasks);
             }
             System.out.println(DIALOGUE_DIVIDER);
