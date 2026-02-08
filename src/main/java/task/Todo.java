@@ -1,3 +1,5 @@
+package task;
+
 public class Todo extends Task{
     protected String taskType;
     public Todo(String description, String taskType){

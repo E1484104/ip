@@ -1,3 +1,5 @@
+package exception;
+
 public class KittenException extends Exception{
     private final String suggestion;
 
