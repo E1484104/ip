@@ -1,3 +1,5 @@
+package exception;
+
 public class InvalidCommandException extends KittenException{
     public InvalidCommandException(){
         super("[InvalidType] Command cannot be identified.",
