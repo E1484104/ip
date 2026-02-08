@@ -14,7 +14,8 @@ public class Kitten {
     public static final int MARK_PREFIX_LENGTH = 4;
     public static final int UNMARK_PREFIX_LENGTH = 6;
     public static final int MAXIMUM_TASK_NUMBER = 100;
-    public static final String NON_NUMERICAL_INDEX_EXCEPTION_REPORT = "Hey maybe you should enter a numerical index for me to ";
+    public static final String NON_NUMERICAL_INDEX_EXCEPTION_REPORT = "[NonNumericalIndex] The index cannot be interpreted into numerical values.";
+    public static final String NON_NUMERICAL_INDEX_EXCEPTION_SOLUTION = "Try: Input a numerical task index";
 
     public static void main(String[] args) {
         printWelcomeMessage();
@@ -47,6 +48,7 @@ public class Kitten {
                 }
             } catch (KittenException e) {
                 System.out.println(OUTPUT_INDENTATION + e.getMessage());
+                System.out.println(SECOND_LINE_INDENTATION + e.getCorrection());
             }
 
             System.out.println(DIALOGUE_DIVIDER);
@@ -120,7 +122,7 @@ public class Kitten {
             System.out.println(OUTPUT_INDENTATION + "All right, I've marked this task as not done yet:");
             System.out.println(SECOND_LINE_INDENTATION + t);
         } catch (NumberFormatException e) {
-            throw new KittenException(NON_NUMERICAL_INDEX_EXCEPTION_REPORT + "unmark");
+            throw new KittenException(NON_NUMERICAL_INDEX_EXCEPTION_REPORT, NON_NUMERICAL_INDEX_EXCEPTION_SOLUTION);
         }
     }
 
@@ -139,7 +141,7 @@ public class Kitten {
             System.out.println(OUTPUT_INDENTATION + "Good job, have a rest! I've marked this task as done:");
             System.out.println(SECOND_LINE_INDENTATION + t);
         } catch (NumberFormatException e) {
-            throw new KittenException(NON_NUMERICAL_INDEX_EXCEPTION_REPORT + "mark");
+            throw new KittenException(NON_NUMERICAL_INDEX_EXCEPTION_REPORT, NON_NUMERICAL_INDEX_EXCEPTION_SOLUTION);
         }
     }
 

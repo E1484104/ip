@@ -1,5 +1,12 @@
 public class KittenException extends Exception{
-    public KittenException(String message){
+    private final String suggestion;
+
+    public KittenException(String message, String suggestion){
         super(message);
+        this.suggestion = suggestion;
     };
+
+    public String getCorrection() {
+        return suggestion;
+    }
 }
