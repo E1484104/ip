@@ -14,6 +14,8 @@ public class Kitten {
     public static final int MARK_PREFIX_LENGTH = 4;
     public static final int UNMARK_PREFIX_LENGTH = 6;
     public static final int MAXIMUM_TASK_NUMBER = 100;
+    public static final String NON_NUMERICAL_INDEX_EXCEPTION_REPORT = "[NonNumericalIndex] The index cannot be interpreted into numerical values.";
+    public static final String NON_NUMERICAL_INDEX_EXCEPTION_SOLUTION = "Try: Input a numerical task index";
 
     public static void main(String[] args) {
         printWelcomeMessage();
@@ -28,33 +30,47 @@ public class Kitten {
         Task[] tasks = new Task[MAXIMUM_TASK_NUMBER];
 
         while (!line.equals("bye")) {
-            if (line.equals("list")) {
-                handleCommandList(tasks);
-            } else if (line.startsWith("mark")) {
-                handleCommandMark(line, tasks);
-            } else if (line.startsWith("unmark")) {
-                handleCommandUnmark(line, tasks);
-            } else if (line.startsWith("todo")) {
-                handleCommandTodo(line, tasks);
-            } else if (line.startsWith("deadline")) {
-                handleCommandDeadline(line, tasks);
-            } else if (line.startsWith("event")) {
-                handleCommandEvent(line, tasks);
-            } else {
-                handleCommandAdd(line, tasks);
+            try {
+                if (line.equals("list")) {
+                    handleCommandList(tasks);
+                } else if (line.startsWith("mark")) {
+                    handleCommandMark(line, tasks);
+                } else if (line.startsWith("unmark")) {
+                    handleCommandUnmark(line, tasks);
+                } else if (line.startsWith("todo")) {
+                    handleCommandTodo(line, tasks);
+                } else if (line.startsWith("deadline")) {
+                    handleCommandDeadline(line, tasks);
+                } else if (line.startsWith("event")) {
+                    handleCommandEvent(line, tasks);
+                } else {
+                    throw new InvalidCommandException();
+                }
+            } catch (KittenException e) {
+                System.out.println(OUTPUT_INDENTATION + e.getMessage());
+                System.out.println(SECOND_LINE_INDENTATION + e.getCorrection());
             }
+
             System.out.println(DIALOGUE_DIVIDER);
 
             line = in.nextLine().trim();
         }
     }
 
-    private static void handleCommandEvent(String line, Task[] tasks) {
+    private static void handleCommandEvent(String line, Task[] tasks) throws KittenException {
+        checkLabel(line, "/from");
+        checkLabel(line, "/to");
+
         int fromIndex = line.indexOf("/from");
         int toIndex = line.indexOf("/to");
         String description = line.substring(EVENT_PREFIX_LENGTH, fromIndex).trim();
         String from = line.substring(fromIndex + FROM_PREFIX_LENGTH, toIndex).trim();
         String to = line.substring(toIndex + TO_PREFIX_LENGTH).trim();
+
+        checkEmpty(description, "event task content");
+        checkEmpty(from, "/from label content");
+        checkEmpty(to, "/to label content");
+
         Task t = new Event(description, "E", from, to);
         tasks[Task.getNumberOfTasks() - 1] = t;
         System.out.println(OUTPUT_INDENTATION + "Got it! Event task added: ");
@@ -62,10 +78,16 @@ public class Kitten {
         System.out.println(OUTPUT_INDENTATION + "Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
     }
 
-    private static void handleCommandDeadline(String line, Task[] tasks) {
+    private static void handleCommandDeadline(String line, Task[] tasks) throws KittenException {
+        checkLabel(line, "/by");
+
         int byIndex = line.indexOf("/by");
         String description = line.substring(DEADLINE_PREFIX_LENGTH, byIndex).trim();
         String by = line.substring(byIndex + BY_PREFIX_LENGTH).trim();
+
+        checkEmpty(description, "deadline task content");
+        checkEmpty(by, "/by label content");
+
         Task t = new Deadline(description, "D", by);
         tasks[Task.getNumberOfTasks() - 1] = t;
         System.out.println(OUTPUT_INDENTATION + "Got it! Deadline task added: ");
@@ -73,38 +95,54 @@ public class Kitten {
         System.out.println(OUTPUT_INDENTATION + "Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
     }
 
-    private static void handleCommandTodo(String line, Task[] tasks) {
-        line = line.substring(TODO_PREFIX_LENGTH).trim();
-        Task t = new Todo(line, "T");
+    private static void handleCommandTodo(String line, Task[] tasks) throws KittenException {
+        String description = line.substring(TODO_PREFIX_LENGTH).trim();
+
+        checkEmpty(description, "todo task content");
+
+        Task t = new Todo(description, "T");
         tasks[Task.getNumberOfTasks() - 1] = t;
         System.out.println(OUTPUT_INDENTATION + "Got it! Todo task added: ");
         System.out.println(SECOND_LINE_INDENTATION + t);
         System.out.println(OUTPUT_INDENTATION + "Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
     }
 
-
-    private static void handleCommandAdd(String line, Task[] tasks) {
-        Task t = new Task(line);
-        tasks[Task.getNumberOfTasks() - 1] = t;
-        System.out.println(OUTPUT_INDENTATION + "Task added: " + t);
-    }
-
-    private static void handleCommandUnmark(String line, Task[] tasks) {
+    private static void handleCommandUnmark(String line, Task[] tasks) throws KittenException {
         line = line.substring(UNMARK_PREFIX_LENGTH).trim();
-        int thisIndex = Integer.parseInt(line);
-        Task t = tasks[thisIndex - 1];
-        t.markAsUndone();
-        System.out.println(OUTPUT_INDENTATION + "All right, I've marked this task as not done yet:");
-        System.out.println(SECOND_LINE_INDENTATION + t);
+
+        checkEmpty(line, "unmark index");
+
+        try {
+            int thisIndex = Integer.parseInt(line);
+
+            checkIndex(thisIndex);
+
+            Task t = tasks[thisIndex - 1];
+            t.markAsUndone();
+            System.out.println(OUTPUT_INDENTATION + "All right, I've marked this task as not done yet:");
+            System.out.println(SECOND_LINE_INDENTATION + t);
+        } catch (NumberFormatException e) {
+            throw new KittenException(NON_NUMERICAL_INDEX_EXCEPTION_REPORT, NON_NUMERICAL_INDEX_EXCEPTION_SOLUTION);
+        }
     }
 
-    private static void handleCommandMark(String line, Task[] tasks) {
+    private static void handleCommandMark(String line, Task[] tasks) throws KittenException {
         line = line.substring(MARK_PREFIX_LENGTH).trim();
-        int thisIndex = Integer.parseInt(line);
-        Task t = tasks[thisIndex - 1];
-        t.markAsDone();
-        System.out.println(OUTPUT_INDENTATION + "Good job, have a rest! I've marked this task as done:");
-        System.out.println(SECOND_LINE_INDENTATION + t);
+
+        checkEmpty(line, "mark index");
+
+        try {
+            int thisIndex = Integer.parseInt(line);
+
+            checkIndex(thisIndex);
+
+            Task t = tasks[thisIndex - 1];
+            t.markAsDone();
+            System.out.println(OUTPUT_INDENTATION + "Good job, have a rest! I've marked this task as done:");
+            System.out.println(SECOND_LINE_INDENTATION + t);
+        } catch (NumberFormatException e) {
+            throw new KittenException(NON_NUMERICAL_INDEX_EXCEPTION_REPORT, NON_NUMERICAL_INDEX_EXCEPTION_SOLUTION);
+        }
     }
 
     private static void handleCommandList(Task[] tasks) {
@@ -112,6 +150,24 @@ public class Kitten {
         for (int i = 1; i <= Task.getNumberOfTasks(); i++) {
             Task t = tasks[i - 1];
             System.out.println(OUTPUT_INDENTATION + i + ". " + t);
+        }
+    }
+
+    private static void checkLabel(String description, String s) throws LackOfLabelException {
+        if (!description.contains(s)) {
+            throw new LackOfLabelException(s);
+        }
+    }
+
+    private static void checkEmpty(String description, String content) throws ContentIsEmptyException {
+        if (description.isEmpty()) {
+            throw new ContentIsEmptyException(content);
+        }
+    }
+
+    private static void checkIndex(int thisIndex) throws InvalidTaskIndexException {
+        if (thisIndex <= 0 || thisIndex > Task.getNumberOfTasks()) {
+            throw new InvalidTaskIndexException();
         }
     }
 

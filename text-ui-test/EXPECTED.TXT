@@ -74,6 +74,58 @@
      3. [E][X] Field Research (from: 4pm to: I don't care just be quick)
     ____________________________________________________________
 
+//blah
+     [InvalidType] Command cannot be identified.
+        Try: Choose one of the command types listed: todo / deadline / event / list / mark / unmark / bye
+    ____________________________________________________________
+
+//todo
+     [EmptyContent] Description of todo task content cannot be empty.
+        Try: Following formats listed below
+           todo [description]
+           deadline [description] /by [deadline]
+           event [description] /from [startTime] /to [endTime]
+    ____________________________________________________________
+
+//deadline 		Empty by content 		/by
+     [EmptyContent] Description of /by label content cannot be empty.
+        Try: Following formats listed below
+           todo [description]
+           deadline [description] /by [deadline]
+           event [description] /from [startTime] /to [endTime]
+    ____________________________________________________________
+
+//	event Lack of from label 	/to 8pm
+     [LackOfLabel] /from label is required in this kind of task.
+        Try: Follow formats listed below
+           todo [description]
+           deadline [description] /by [deadline]
+           event [description] /from [startTime] /to [endTime]
+    ____________________________________________________________
+
+//event /to
+     [LackOfLabel] /from label is required in this kind of task.
+        Try: Follow formats listed below
+           todo [description]
+           deadline [description] /by [deadline]
+           event [description] /from [startTime] /to [endTime]
+    ____________________________________________________________
+
+//unmark 0
+     [InvalidIndex] This index is out of our list range.
+        Try: Check task list and re-input a valid index
+    ____________________________________________________________
+
+//mark 4
+     [InvalidIndex] This index is out of our list range.
+        Try: Check task list and re-input a valid index
+    ____________________________________________________________
+
+//mark abc
+     [NonNumericalIndex] The index cannot be interpreted into numerical values.
+        Try: Input a numerical task index
+    ____________________________________________________________
+
 //bye
      Bye~ Have a nice day and all the best!
     ____________________________________________________________

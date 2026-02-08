@@ -10,4 +10,12 @@ mark 3
 list
 unmark 		2
     list
+blah
+todo
+deadline 		Empty by content 		/by
+	event Lack of from label 	/to 8pm
+event /to
+unmark 0
+mark 4
+mark abc
 bye
