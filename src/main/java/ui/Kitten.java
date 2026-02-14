@@ -1,6 +1,10 @@
 package ui;
 
-import exception.*;
+import exception.ContentIsEmptyException;
+import exception.InvalidCommandException;
+import exception.InvalidTaskIndexException;
+import exception.KittenException;
+import exception.LackOfLabelException;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -56,7 +60,7 @@ public class Kitten {
                 }
             } catch (KittenException e) {
                 System.out.println(OUTPUT_INDENTATION + e.getMessage());
-                System.out.println(SECOND_LINE_INDENTATION + e.getCorrection());
+                System.out.println(SECOND_LINE_INDENTATION + e.getSuggestion());
             }
 
             System.out.println(DIALOGUE_DIVIDER);

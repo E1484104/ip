@@ -8,7 +8,7 @@ public class KittenException extends Exception{
         this.suggestion = suggestion;
     };
 
-    public String getCorrection() {
+    public String getSuggestion() {
         return suggestion;
     }
 }
