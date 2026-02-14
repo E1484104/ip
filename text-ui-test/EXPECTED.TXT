@@ -77,7 +77,7 @@
 //blah
      [InvalidType] Command cannot be identified.
         Try: Choose one of the command types listed below:
-           todo / deadline / event / list / mark / unmark / bye
+           todo / deadline / event / list / mark / unmark / delete / bye
     ____________________________________________________________
 
 //todo
@@ -86,6 +86,9 @@
            todo [description]
            deadline [description] /by [deadline]
            event [description] /from [startTime] /to [endTime]
+           mark [taskIndex]
+           unmark [taskIndex]
+           delete [taskIndex]
     ____________________________________________________________
 
 //deadline 		Empty by content 		/by
@@ -94,6 +97,9 @@
            todo [description]
            deadline [description] /by [deadline]
            event [description] /from [startTime] /to [endTime]
+           mark [taskIndex]
+           unmark [taskIndex]
+           delete [taskIndex]
     ____________________________________________________________
 
 //	event Lack of from label 	/to 8pm
@@ -102,6 +108,9 @@
            todo [description]
            deadline [description] /by [deadline]
            event [description] /from [startTime] /to [endTime]
+           mark [taskIndex]
+           unmark [taskIndex]
+           delete [taskIndex]
     ____________________________________________________________
 
 //event /to
@@ -110,6 +119,9 @@
            todo [description]
            deadline [description] /by [deadline]
            event [description] /from [startTime] /to [endTime]
+           mark [taskIndex]
+           unmark [taskIndex]
+           delete [taskIndex]
     ____________________________________________________________
 
 //unmark 0
@@ -125,6 +137,46 @@
 //mark abc
      [NonNumericalIndex] The index cannot be interpreted into numerical values.
         Try: Input a numerical task index
+    ____________________________________________________________
+
+//list
+     Here are the tasks in your list:
+     1. [T][X] HelloWorld
+     2. [D][ ] Finish iP task :( (by: Week 8)
+     3. [E][X] Field Research (from: 4pm to: I don't care just be quick)
+    ____________________________________________________________
+
+//delete 		3
+     Okay~ I've removed this task from your list:
+        [E][X] Field Research (from: 4pm to: I don't care just be quick)
+     Now you have 2 tasks in the list.
+    ____________________________________________________________
+
+//		delete 1
+     Okay~ I've removed this task from your list:
+        [T][X] HelloWorld
+     Now you have 1 tasks in the list.
+    ____________________________________________________________
+
+//delete abc
+     [NonNumericalIndex] The index cannot be interpreted into numerical values.
+        Try: Input a numerical task index
+    ____________________________________________________________
+
+//delete 2
+     [InvalidIndex] This index is out of our list range.
+        Try: Check task list and re-input a valid index
+    ____________________________________________________________
+
+//delete
+     [EmptyContent] Description of delete index cannot be empty.
+        Try: Follow formats listed below
+           todo [description]
+           deadline [description] /by [deadline]
+           event [description] /from [startTime] /to [endTime]
+           mark [taskIndex]
+           unmark [taskIndex]
+           delete [taskIndex]
     ____________________________________________________________
 
 //bye

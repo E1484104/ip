@@ -85,7 +85,7 @@ public class Kitten {
             Task t = tasks.get(thisIndex - 1);
             tasks.remove(thisIndex - 1);
             Task.setNumberOfTasks(Task.getNumberOfTasks() - 1);
-            System.out.println(OUTPUT_INDENTATION + "Okay~ I've removed this task from your list: ");
+            System.out.println(OUTPUT_INDENTATION + "Okay~ I've removed this task from your list:");
             System.out.println(SECOND_LINE_INDENTATION + t);
             System.out.println(OUTPUT_INDENTATION + "Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
         } catch (NumberFormatException e) {
