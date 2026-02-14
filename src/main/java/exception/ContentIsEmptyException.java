@@ -7,6 +7,9 @@ public class ContentIsEmptyException extends KittenException {
                 Try: Follow formats listed below
                            todo [description]
                            deadline [description] /by [deadline]
-                           event [description] /from [startTime] /to [endTime]""");
+                           event [description] /from [startTime] /to [endTime]
+                           mark [taskIndex]
+                           unmark [taskIndex]
+                           delete [taskIndex]""");
     }
 }

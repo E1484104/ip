@@ -26,6 +26,7 @@ public class Kitten {
     public static final int TO_PREFIX_LENGTH = 3;
     public static final int MARK_PREFIX_LENGTH = 4;
     public static final int UNMARK_PREFIX_LENGTH = 6;
+    public static final int DELETE_PREFIX_LENGTH = 6;
     public static final String NON_NUMERICAL_INDEX_EXCEPTION_REPORT = "[NonNumericalIndex] The index cannot be interpreted into numerical values.";
     public static final String NON_NUMERICAL_INDEX_EXCEPTION_SOLUTION = "Try: Input a numerical task index";
 
@@ -55,6 +56,8 @@ public class Kitten {
                     handleCommandDeadline(line, tasks);
                 } else if (line.startsWith("event")) {
                     handleCommandEvent(line, tasks);
+                } else if (line.startsWith("delete")) {
+                    handleCommandDelete(line, tasks);
                 } else {
                     throw new InvalidCommandException();
                 }
@@ -66,6 +69,27 @@ public class Kitten {
             System.out.println(DIALOGUE_DIVIDER);
 
             line = in.nextLine().trim();
+        }
+    }
+
+    private static void handleCommandDelete(String line, ArrayList<Task> tasks) throws KittenException {
+        line = line.substring(DELETE_PREFIX_LENGTH).trim();
+
+        checkEmpty(line, "delete index");
+
+        try {
+            int thisIndex = Integer.parseInt(line);
+
+            checkIndex(thisIndex);
+
+            Task t = tasks.get(thisIndex - 1);
+            tasks.remove(thisIndex - 1);
+            Task.setNumberOfTasks(Task.getNumberOfTasks() - 1);
+            System.out.println(OUTPUT_INDENTATION + "Okay~ I've removed this task from your list: ");
+            System.out.println(SECOND_LINE_INDENTATION + t);
+            System.out.println(OUTPUT_INDENTATION + "Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
+        } catch (NumberFormatException e) {
+            throw new KittenException(NON_NUMERICAL_INDEX_EXCEPTION_REPORT, NON_NUMERICAL_INDEX_EXCEPTION_SOLUTION);
         }
     }
 

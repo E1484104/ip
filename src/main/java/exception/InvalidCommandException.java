@@ -5,6 +5,6 @@ public class InvalidCommandException extends KittenException{
         super("[InvalidType] Command cannot be identified.",
                 """
                 Try: Choose one of the command types listed below:
-                           todo / deadline / event / list / mark / unmark / bye""");
+                           todo / deadline / event / list / mark / unmark / delete / bye""");
     }
 }

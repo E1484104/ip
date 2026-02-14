@@ -18,6 +18,10 @@ public class Task {
         return numberOfTasks;
     }
 
+    public static void setNumberOfTasks(int numberOfTasks) {
+        Task.numberOfTasks = numberOfTasks;
+    }
+
     public Task(String description) {
         this.description = description;
         this.isDone = false;
