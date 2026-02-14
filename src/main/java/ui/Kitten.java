@@ -11,6 +11,7 @@ import task.Task;
 import task.Todo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Kitten {
 
@@ -25,7 +26,6 @@ public class Kitten {
     public static final int TO_PREFIX_LENGTH = 3;
     public static final int MARK_PREFIX_LENGTH = 4;
     public static final int UNMARK_PREFIX_LENGTH = 6;
-    public static final int MAXIMUM_TASK_NUMBER = 100;
     public static final String NON_NUMERICAL_INDEX_EXCEPTION_REPORT = "[NonNumericalIndex] The index cannot be interpreted into numerical values.";
     public static final String NON_NUMERICAL_INDEX_EXCEPTION_SOLUTION = "Try: Input a numerical task index";
 
@@ -39,7 +39,7 @@ public class Kitten {
         Scanner in = new Scanner(System.in);
         String line = in.nextLine().trim();
 
-        Task[] tasks = new Task[MAXIMUM_TASK_NUMBER];
+        ArrayList<Task> tasks = new ArrayList<>();
 
         while (!line.equals("bye")) {
             try {
@@ -69,7 +69,7 @@ public class Kitten {
         }
     }
 
-    private static void handleCommandEvent(String line, Task[] tasks) throws KittenException {
+    private static void handleCommandEvent(String line, ArrayList<Task> tasks) throws KittenException {
         checkLabel(line, "/from");
         checkLabel(line, "/to");
 
@@ -84,13 +84,13 @@ public class Kitten {
         checkEmpty(to, "/to label content");
 
         Task t = new Event(description, "E", from, to);
-        tasks[Task.getNumberOfTasks() - 1] = t;
+        tasks.add(t);
         System.out.println(OUTPUT_INDENTATION + "Got it! Event task added: ");
         System.out.println(SECOND_LINE_INDENTATION + t);
         System.out.println(OUTPUT_INDENTATION + "Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
     }
 
-    private static void handleCommandDeadline(String line, Task[] tasks) throws KittenException {
+    private static void handleCommandDeadline(String line, ArrayList<Task> tasks) throws KittenException {
         checkLabel(line, "/by");
 
         int byIndex = line.indexOf("/by");
@@ -101,25 +101,25 @@ public class Kitten {
         checkEmpty(by, "/by label content");
 
         Task t = new Deadline(description, "D", by);
-        tasks[Task.getNumberOfTasks() - 1] = t;
+        tasks.add(t);
         System.out.println(OUTPUT_INDENTATION + "Got it! Deadline task added: ");
         System.out.println(SECOND_LINE_INDENTATION + t);
         System.out.println(OUTPUT_INDENTATION + "Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
     }
 
-    private static void handleCommandTodo(String line, Task[] tasks) throws KittenException {
+    private static void handleCommandTodo(String line, ArrayList<Task> tasks) throws KittenException {
         String description = line.substring(TODO_PREFIX_LENGTH).trim();
 
         checkEmpty(description, "todo task content");
 
         Task t = new Todo(description, "T");
-        tasks[Task.getNumberOfTasks() - 1] = t;
+        tasks.add(t);
         System.out.println(OUTPUT_INDENTATION + "Got it! Todo task added: ");
         System.out.println(SECOND_LINE_INDENTATION + t);
         System.out.println(OUTPUT_INDENTATION + "Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
     }
 
-    private static void handleCommandUnmark(String line, Task[] tasks) throws KittenException {
+    private static void handleCommandUnmark(String line, ArrayList<Task> tasks) throws KittenException {
         line = line.substring(UNMARK_PREFIX_LENGTH).trim();
 
         checkEmpty(line, "unmark index");
@@ -129,7 +129,7 @@ public class Kitten {
 
             checkIndex(thisIndex);
 
-            Task t = tasks[thisIndex - 1];
+            Task t = tasks.get(thisIndex - 1);
             t.markAsUndone();
             System.out.println(OUTPUT_INDENTATION + "All right, I've marked this task as not done yet:");
             System.out.println(SECOND_LINE_INDENTATION + t);
@@ -138,7 +138,7 @@ public class Kitten {
         }
     }
 
-    private static void handleCommandMark(String line, Task[] tasks) throws KittenException {
+    private static void handleCommandMark(String line, ArrayList<Task> tasks) throws KittenException {
         line = line.substring(MARK_PREFIX_LENGTH).trim();
 
         checkEmpty(line, "mark index");
@@ -148,7 +148,7 @@ public class Kitten {
 
             checkIndex(thisIndex);
 
-            Task t = tasks[thisIndex - 1];
+            Task t = tasks.get(thisIndex - 1);
             t.markAsDone();
             System.out.println(OUTPUT_INDENTATION + "Good job, have a rest! I've marked this task as done:");
             System.out.println(SECOND_LINE_INDENTATION + t);
@@ -157,10 +157,10 @@ public class Kitten {
         }
     }
 
-    private static void handleCommandList(Task[] tasks) {
+    private static void handleCommandList(ArrayList<Task> tasks) {
         System.out.println(OUTPUT_INDENTATION + "Here are the tasks in your list:");
         for (int i = 1; i <= Task.getNumberOfTasks(); i++) {
-            Task t = tasks[i - 1];
+            Task t = tasks.get(i - 1);
             System.out.println(OUTPUT_INDENTATION + i + ". " + t);
         }
     }

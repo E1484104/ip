@@ -76,12 +76,13 @@
 
 //blah
      [InvalidType] Command cannot be identified.
-        Try: Choose one of the command types listed: todo / deadline / event / list / mark / unmark / bye
+        Try: Choose one of the command types listed below:
+           todo / deadline / event / list / mark / unmark / bye
     ____________________________________________________________
 
 //todo
      [EmptyContent] Description of todo task content cannot be empty.
-        Try: Following formats listed below
+        Try: Follow formats listed below
            todo [description]
            deadline [description] /by [deadline]
            event [description] /from [startTime] /to [endTime]
@@ -89,7 +90,7 @@
 
 //deadline 		Empty by content 		/by
      [EmptyContent] Description of /by label content cannot be empty.
-        Try: Following formats listed below
+        Try: Follow formats listed below
            todo [description]
            deadline [description] /by [deadline]
            event [description] /from [startTime] /to [endTime]
