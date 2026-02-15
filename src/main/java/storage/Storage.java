@@ -56,7 +56,9 @@ public class Storage {
                 break;
             }
             if (t != null) {
-                if (parts[1].equals("1")) t.markAsDone();
+                if (parts[1].equals("1")){
+                    t.markAsDone();
+                }
                 tasks.add(t);
             }
         }
