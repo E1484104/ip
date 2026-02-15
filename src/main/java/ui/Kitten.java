@@ -9,11 +9,16 @@ import task.Deadline;
 import task.Event;
 import task.Task;
 import task.Todo;
+import storage.Storage;
+
+import java.io.IOException;
 
 import java.util.Scanner;
 import java.util.ArrayList;
 
+
 public class Kitten {
+    private static final Storage storage = new Storage("./KittenList.txt");
 
     public static final String DIALOGUE_DIVIDER = "    ____________________________________________________________\n";
     public static final String OUTPUT_INDENTATION = "     ";
@@ -37,10 +42,19 @@ public class Kitten {
     }
 
     private static void handleCommand() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            tasks = storage.load();
+            System.out.println(OUTPUT_INDENTATION + "Existing list loaded. Start your work~");
+            System.out.println(DIALOGUE_DIVIDER);
+            Task.setNumberOfTasks(tasks.size());
+        } catch (IOException e) {
+            System.out.println(OUTPUT_INDENTATION + "No existing list yet. Start with a new one~");
+            System.out.println(DIALOGUE_DIVIDER);
+        }
+
         Scanner in = new Scanner(System.in);
         String line = in.nextLine().trim();
-
-        ArrayList<Task> tasks = new ArrayList<>();
 
         while (!line.equals("bye")) {
             try {
@@ -85,11 +99,14 @@ public class Kitten {
             Task t = tasks.get(thisIndex - 1);
             tasks.remove(thisIndex - 1);
             Task.setNumberOfTasks(Task.getNumberOfTasks() - 1);
+            storage.save(tasks);
             System.out.println(OUTPUT_INDENTATION + "Okay~ I've removed this task from your list:");
             System.out.println(SECOND_LINE_INDENTATION + t);
             System.out.println(OUTPUT_INDENTATION + "Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
         } catch (NumberFormatException e) {
             throw new KittenException(NON_NUMERICAL_INDEX_EXCEPTION_REPORT, NON_NUMERICAL_INDEX_EXCEPTION_SOLUTION);
+        } catch (IOException e) {
+            System.out.println("Error saving to file!");
         }
     }
 
@@ -109,6 +126,9 @@ public class Kitten {
 
         Task t = new Event(description, "E", from, to);
         tasks.add(t);
+
+        tryStoreFile(tasks);
+
         System.out.println(OUTPUT_INDENTATION + "Got it! Event task added: ");
         System.out.println(SECOND_LINE_INDENTATION + t);
         System.out.println(OUTPUT_INDENTATION + "Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
@@ -126,6 +146,9 @@ public class Kitten {
 
         Task t = new Deadline(description, "D", by);
         tasks.add(t);
+
+        tryStoreFile(tasks);
+
         System.out.println(OUTPUT_INDENTATION + "Got it! Deadline task added: ");
         System.out.println(SECOND_LINE_INDENTATION + t);
         System.out.println(OUTPUT_INDENTATION + "Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
@@ -138,9 +161,20 @@ public class Kitten {
 
         Task t = new Todo(description, "T");
         tasks.add(t);
+
+        tryStoreFile(tasks);
+
         System.out.println(OUTPUT_INDENTATION + "Got it! Todo task added: ");
         System.out.println(SECOND_LINE_INDENTATION + t);
         System.out.println(OUTPUT_INDENTATION + "Now you have " + Task.getNumberOfTasks() + " tasks in the list.");
+    }
+
+    private static void tryStoreFile(ArrayList<Task> tasks) {
+        try{
+            storage.save(tasks);
+        } catch (IOException e) {
+            System.out.println("Error saving to file!");
+        }
     }
 
     private static void handleCommandUnmark(String line, ArrayList<Task> tasks) throws KittenException {
@@ -155,10 +189,13 @@ public class Kitten {
 
             Task t = tasks.get(thisIndex - 1);
             t.markAsUndone();
+            storage.save(tasks);
             System.out.println(OUTPUT_INDENTATION + "All right, I've marked this task as not done yet:");
             System.out.println(SECOND_LINE_INDENTATION + t);
         } catch (NumberFormatException e) {
             throw new KittenException(NON_NUMERICAL_INDEX_EXCEPTION_REPORT, NON_NUMERICAL_INDEX_EXCEPTION_SOLUTION);
+        } catch (IOException e){
+            System.out.println("Error saving to file!");
         }
     }
 
@@ -174,10 +211,13 @@ public class Kitten {
 
             Task t = tasks.get(thisIndex - 1);
             t.markAsDone();
+            storage.save(tasks);
             System.out.println(OUTPUT_INDENTATION + "Good job, have a rest! I've marked this task as done:");
             System.out.println(SECOND_LINE_INDENTATION + t);
         } catch (NumberFormatException e) {
             throw new KittenException(NON_NUMERICAL_INDEX_EXCEPTION_REPORT, NON_NUMERICAL_INDEX_EXCEPTION_SOLUTION);
+        } catch (IOException e){
+            System.out.println("Error saving to file!");
         }
     }
 
