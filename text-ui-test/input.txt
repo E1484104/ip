@@ -18,4 +18,10 @@ event /to
 unmark 0
 mark 4
 mark abc
+list
+delete 		3
+		delete 1
+delete abc
+delete 2
+delete
 bye

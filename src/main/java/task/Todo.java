@@ -15,4 +15,9 @@ public class Todo extends Task{
     public String toString(){
         return ("[" + taskType + "]" + super.toString());
     }
+
+    @Override
+    public String toFileFormat() {
+        return "T | " + (isDone ? "1" : "0") + " | " + description;
+    }
 }

@@ -1,6 +1,6 @@
 package task;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -16,6 +16,10 @@ public class Task {
 
     public static int getNumberOfTasks() {
         return numberOfTasks;
+    }
+
+    public static void setNumberOfTasks(int numberOfTasks) {
+        Task.numberOfTasks = numberOfTasks;
     }
 
     public Task(String description) {
@@ -35,6 +39,8 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
+
+    public abstract String toFileFormat();
 
     @Override
     public String toString(){
