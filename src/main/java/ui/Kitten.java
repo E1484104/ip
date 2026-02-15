@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 
 public class Kitten {
-    private static final Storage storage = new Storage("./KittenList.txt");
+    private static final Storage storage = new Storage("./data/KittenList.txt");
 
     public static final String DIALOGUE_DIVIDER = "    ____________________________________________________________\n";
     public static final String OUTPUT_INDENTATION = "     ";

@@ -32,8 +32,16 @@ diff ACTUAL.TXT EXPECTED-UNIX.TXT
 if [ $? -eq 0 ]
 then
     echo "Test result: PASSED"
-    exit 0
+    TEST_RESULT=0
 else
     echo "Test result: FAILED"
-    exit 1
+    TEST_RESULT=1
 fi
+
+if [ -f "./data/KittenList.txt" ]
+then
+    rm ./data/KittenList.txt
+    echo "Cleanup: Deleted ./data/KittenList.txt"
+fi
+
+exit $TEST_RESULT
