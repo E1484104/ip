@@ -73,7 +73,7 @@ public class Ui {
             System.out.println(OUTPUT_INDENTATION + "Here are the matching tasks in your list:");
             for (int i = 0; i < foundTasks.size(); i++) {
                 int originalIdx = taskIndexes.get(i);
-                System.out.println(OUTPUT_INDENTATION + originalIdx + "." + foundTasks.get(i));
+                System.out.println(OUTPUT_INDENTATION + originalIdx + ". " + foundTasks.get(i));
             }
         }
     }
