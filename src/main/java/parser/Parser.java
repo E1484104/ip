@@ -16,6 +16,11 @@ import task.Deadline;
 import task.Event;
 import task.Todo;
 
+/**
+ * Handles the parsing of user input into executable {@code Command} objects.
+ * This class contains methods to validate input syntax, extract parameters,
+ * and instantiate the appropriate command subclasses.
+ */
 public class Parser {
 
     public static final int TODO_PREFIX_LENGTH = 4;
@@ -27,6 +32,13 @@ public class Parser {
     public static final String NON_NUMERICAL_INDEX_EXCEPTION_REPORT = "[NonNumericalIndex] The index cannot be interpreted into numerical values.";
     public static final String NON_NUMERICAL_INDEX_EXCEPTION_SOLUTION = "Try: Input a numerical task index";
 
+    /**
+     * Parses the user's full input string and returns the corresponding command.
+     *
+     * @param fullCommand The raw input string from the user.
+     * @return A {@code Command} object ready for execution.
+     * @throws KittenException If the command type is unknown or parameters are invalid.
+     */
     public static Command parse(String fullCommand) throws KittenException {
         String commandType = getCommandType(fullCommand);
 
@@ -54,11 +66,11 @@ public class Parser {
         }
     }
 
-    public static String getCommandType(String fullCommand) {
+    private static String getCommandType(String fullCommand) {
         return fullCommand.trim().split(" ")[0].toLowerCase();
     }
 
-    public static int parseIndex(String fullCommand, String prefix) throws KittenException {
+    private static int parseIndex(String fullCommand, String prefix) throws KittenException {
         String content = fullCommand.replaceFirst(prefix, "").trim();
         if (content.isEmpty()) {
             throw new ContentIsEmptyException(prefix + " index");
@@ -70,15 +82,15 @@ public class Parser {
         }
     }
 
-    public static String parseFind(String fullCommand) throws ContentIsEmptyException {
+    private static String parseFind(String fullCommand) throws ContentIsEmptyException {
         String target = fullCommand.substring(4).trim();
-        if(target.isEmpty()) {
+        if (target.isEmpty()) {
             throw new ContentIsEmptyException("search prompt");
         }
         return target;
     }
 
-    public static Todo parseTodo(String fullCommand) throws ContentIsEmptyException {
+    private static Todo parseTodo(String fullCommand) throws ContentIsEmptyException {
         String description = fullCommand.substring(TODO_PREFIX_LENGTH).trim();
         if (description.isEmpty()) {
             throw new ContentIsEmptyException("todo task content");
@@ -86,7 +98,7 @@ public class Parser {
         return new Todo(description, "T");
     }
 
-    public static Deadline parseDeadline(String fullCommand) throws KittenException {
+    private static Deadline parseDeadline(String fullCommand) throws KittenException {
         if (!fullCommand.contains("/by")) {
             throw new LackOfLabelException("/by");
         }
@@ -104,7 +116,7 @@ public class Parser {
         return new Deadline(description, "D", by);
     }
 
-    public static Event parseEvent(String fullCommand) throws KittenException {
+    private static Event parseEvent(String fullCommand) throws KittenException {
         if (!fullCommand.contains("/from")) {
             throw new LackOfLabelException("/from");
         }

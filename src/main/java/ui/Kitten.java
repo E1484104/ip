@@ -8,11 +8,22 @@ import task.TaskList;
 
 import java.io.IOException;
 
+/**
+ * The main class for the Kitten task management application.
+ * It initializes the core components—UI, Storage, and TaskList—and
+ * runs the main program loop to process user commands.
+ */
 public class Kitten {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Initializes the Kitten application with a specified file path for data storage.
+     * Attempts to load existing tasks from the file; if unsuccessful, starts with an empty list.
+     *
+     * @param filePath The path to the file where task data is stored.
+     */
     public Kitten(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -24,7 +35,7 @@ public class Kitten {
         }
     }
 
-    public void run() {
+    private void run() {
         ui.printWelcomeMessage();
         boolean isExit = false;
 
@@ -45,6 +56,12 @@ public class Kitten {
         }
     }
 
+    /**
+     * Entry point of the application.
+     * Creates a new Kitten instance with a default data file path and runs it.
+     *
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) {
         new Kitten("./data/KittenList.txt").run();
     }
