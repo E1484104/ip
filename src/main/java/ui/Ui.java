@@ -4,6 +4,7 @@ import exception.KittenException;
 import task.Task;
 import task.TaskList;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -63,6 +64,18 @@ public class Ui {
     public void printUnmarkSuccess(Task task) {
         System.out.println(OUTPUT_INDENTATION + "All right, I've marked this task as not done yet:");
         System.out.println(SECOND_LINE_INDENTATION + task);
+    }
+
+    public void printFoundTasks(ArrayList<Task> foundTasks, ArrayList<Integer> taskIndexes) {
+        if (foundTasks.isEmpty()) {
+            System.out.println(OUTPUT_INDENTATION + "I couldn't find any matching tasks :(");
+        } else {
+            System.out.println(OUTPUT_INDENTATION + "Here are the matching tasks in your list:");
+            for (int i = 0; i < foundTasks.size(); i++) {
+                int originalIdx = taskIndexes.get(i);
+                System.out.println(OUTPUT_INDENTATION + originalIdx + "." + foundTasks.get(i));
+            }
+        }
     }
 
     public void showError(String message) {
