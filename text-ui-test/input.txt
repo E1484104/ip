@@ -19,6 +19,10 @@ unmark 0
 mark 4
 mark abc
 list
+find ld
+find    (
+find May the force be with you
+find
 delete 		3
 		delete 1
 delete abc

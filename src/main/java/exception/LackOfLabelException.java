@@ -10,6 +10,7 @@ public class LackOfLabelException extends KittenException{
                            event [description] /from [startTime] /to [endTime]
                            mark [taskIndex]
                            unmark [taskIndex]
-                           delete [taskIndex]""");
+                           delete [taskIndex]
+                           find [targetContent]""");
     }
 }

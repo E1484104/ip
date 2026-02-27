@@ -6,6 +6,7 @@ import command.DeleteCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.UnmarkCommand;
+import command.FindCommand;
 import command.Command;
 import exception.ContentIsEmptyException;
 import exception.InvalidCommandException;
@@ -46,6 +47,8 @@ public class Parser {
             return new AddCommand(parseDeadline(fullCommand), "Deadline");
         case "event":
             return new AddCommand(parseEvent(fullCommand), "Event");
+        case "find":
+            return new FindCommand(parseFind(fullCommand));
         default:
             throw new InvalidCommandException();
         }
@@ -65,6 +68,14 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new KittenException(NON_NUMERICAL_INDEX_EXCEPTION_REPORT, NON_NUMERICAL_INDEX_EXCEPTION_SOLUTION);
         }
+    }
+
+    public static String parseFind(String fullCommand) throws ContentIsEmptyException {
+        String target = fullCommand.substring(4).trim();
+        if(target.isEmpty()) {
+            throw new ContentIsEmptyException("search prompt");
+        }
+        return target;
     }
 
     public static Todo parseTodo(String fullCommand) throws ContentIsEmptyException {
