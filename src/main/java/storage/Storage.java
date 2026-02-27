@@ -12,13 +12,30 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles loading tasks from a file and saving tasks to a file.
+ * This class is responsible for persistent data storage, ensuring that tasks
+ * are preserved between application sessions.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage object with a specified file path.
+     *
+     * @param filePath The relative or absolute path to the data file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the current list of tasks to the storage file.
+     * If the parent directories do not exist, they will be created.
+     *
+     * @param tasks The list of tasks to be written to the file.
+     * @throws IOException If an error occurs during the file writing process.
+     */
     public void save(ArrayList<Task> tasks) throws IOException {
         File f = new File(filePath);
         if (!f.getParentFile().exists()) {
@@ -32,6 +49,13 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Loads tasks from the storage file and returns them as an ArrayList.
+     * If the file does not exist, an empty list is returned.
+     *
+     * @return An ArrayList containing the tasks parsed from the file.
+     * @throws IOException If an error occurs while reading the file.
+     */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File f = new File(filePath);
@@ -56,7 +80,7 @@ public class Storage {
                 break;
             }
             if (t != null) {
-                if (parts[1].equals("1")){
+                if (parts[1].equals("1")) {
                     t.markAsDone();
                 }
                 tasks.add(t);
