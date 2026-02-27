@@ -3,6 +3,7 @@ package ui;
 import exception.KittenException;
 import task.Task;
 import task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -33,7 +34,6 @@ public class Ui {
 
     public void printByeMessage() {
         System.out.println(OUTPUT_INDENTATION + "Bye~ Have a nice day and all the best!");
-        System.out.print(DIALOGUE_DIVIDER);
     }
 
     public void printTaskList(TaskList tasks) {
@@ -63,5 +63,13 @@ public class Ui {
     public void printUnmarkSuccess(Task task) {
         System.out.println(OUTPUT_INDENTATION + "All right, I've marked this task as not done yet:");
         System.out.println(SECOND_LINE_INDENTATION + task);
+    }
+
+    public void showError(String message) {
+        System.out.println(OUTPUT_INDENTATION + message);
+    }
+
+    public void showSuggestion(String suggestion){
+        System.out.println(SECOND_LINE_INDENTATION + suggestion);
     }
 }

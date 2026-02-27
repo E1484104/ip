@@ -1,6 +1,14 @@
 package parser;
 
+import command.AddCommand;
+import command.ByeCommand;
+import command.DeleteCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import command.UnmarkCommand;
+import command.Command;
 import exception.ContentIsEmptyException;
+import exception.InvalidCommandException;
 import exception.KittenException;
 import exception.LackOfLabelException;
 import task.Deadline;
@@ -15,12 +23,33 @@ public class Parser {
     public static final int EVENT_PREFIX_LENGTH = 5;
     public static final int FROM_PREFIX_LENGTH = 5;
     public static final int TO_PREFIX_LENGTH = 3;
-    public static final int MARK_PREFIX_LENGTH = 4;
-    public static final int UNMARK_PREFIX_LENGTH = 6;
-    public static final int DELETE_PREFIX_LENGTH = 6;
     public static final String NON_NUMERICAL_INDEX_EXCEPTION_REPORT = "[NonNumericalIndex] The index cannot be interpreted into numerical values.";
     public static final String NON_NUMERICAL_INDEX_EXCEPTION_SOLUTION = "Try: Input a numerical task index";
 
+    public static Command parse(String fullCommand) throws KittenException {
+        String commandType = getCommandType(fullCommand);
+
+        switch (commandType) {
+        case "bye":
+            return new ByeCommand();
+        case "list":
+            return new ListCommand();
+        case "mark":
+            return new MarkCommand(parseIndex(fullCommand, "mark"));
+        case "unmark":
+            return new UnmarkCommand(parseIndex(fullCommand, "unmark"));
+        case "delete":
+            return new DeleteCommand(parseIndex(fullCommand, "delete"));
+        case "todo":
+            return new AddCommand(parseTodo(fullCommand), "Todo");
+        case "deadline":
+            return new AddCommand(parseDeadline(fullCommand), "Deadline");
+        case "event":
+            return new AddCommand(parseEvent(fullCommand), "Event");
+        default:
+            throw new InvalidCommandException();
+        }
+    }
 
     public static String getCommandType(String fullCommand) {
         return fullCommand.trim().split(" ")[0].toLowerCase();
@@ -41,7 +70,7 @@ public class Parser {
     public static Todo parseTodo(String fullCommand) throws ContentIsEmptyException {
         String description = fullCommand.substring(TODO_PREFIX_LENGTH).trim();
         if (description.isEmpty()) {
-            throw new ContentIsEmptyException("todo content");
+            throw new ContentIsEmptyException("todo task content");
         }
         return new Todo(description, "T");
     }
@@ -54,16 +83,25 @@ public class Parser {
         String description = fullCommand.substring(DEADLINE_PREFIX_LENGTH, byIndex).trim();
         String by = fullCommand.substring(byIndex + BY_PREFIX_LENGTH).trim();
 
-        if (description.isEmpty()) throw new ContentIsEmptyException("deadline description");
-        if (by.isEmpty()) throw new ContentIsEmptyException("/by content");
+        if (description.isEmpty()) {
+            throw new ContentIsEmptyException("deadline task content");
+        }
+        if (by.isEmpty()) {
+            throw new ContentIsEmptyException("/by label content");
+        }
 
-        return new Deadline(description,"D", by);
+        return new Deadline(description, "D", by);
     }
 
     public static Event parseEvent(String fullCommand) throws KittenException {
-        if (!fullCommand.contains("/from") || !fullCommand.contains("/to")) {
-            throw new LackOfLabelException("/from and /to");
+        if (!fullCommand.contains("/from")) {
+            throw new LackOfLabelException("/from");
         }
+
+        if (!fullCommand.contains("/to")) {
+            throw new LackOfLabelException("/to");
+        }
+
         int fromIndex = fullCommand.indexOf("/from");
         int toIndex = fullCommand.indexOf("/to");
 
@@ -71,10 +109,18 @@ public class Parser {
         String from = fullCommand.substring(fromIndex + FROM_PREFIX_LENGTH, toIndex).trim();
         String to = fullCommand.substring(toIndex + TO_PREFIX_LENGTH).trim();
 
-        if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
-            throw new ContentIsEmptyException("event details");
+        if (description.isEmpty()) {
+            throw new ContentIsEmptyException("event task content");
+        }
+        if (from.isEmpty()) {
+            throw new ContentIsEmptyException("/from label content");
+        }
+        if (to.isEmpty()) {
+            throw new ContentIsEmptyException("/to label content");
         }
 
         return new Event(description, "E", from, to);
     }
+
+
 }

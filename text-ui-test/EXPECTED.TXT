@@ -3,9 +3,6 @@
      What can I do for you? I'm always here to be with you~
     ____________________________________________________________
 
-     Existing list loaded. Start your work~
-    ____________________________________________________________
-
 //todo HelloWorld
      Got it! Todo task added: 
         [T][ ] HelloWorld
@@ -185,3 +182,4 @@
 //bye
      Bye~ Have a nice day and all the best!
     ____________________________________________________________
+
