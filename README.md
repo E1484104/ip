@@ -4,6 +4,8 @@ Kitten is a professional, lightweight **Command Line Interface (CLI)** task mana
 students and developers who prefer typing over clicking.
 It helps you track deadlines, events, and daily to-dos with a friendly, supportive personality.
 
+---
+
 ## Quick Start
 
 1. Ensure you have **Java 17** or above installed on your computer.
@@ -19,6 +21,8 @@ It helps you track deadlines, events, and daily to-dos with a friendly, supporti
 ```
 5. Your task list will be stored in `./data/KittenList.txt`, it will be automatically
    loaded when you start the program.
+
+---
 
 ## Core Features
 
